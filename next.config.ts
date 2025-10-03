@@ -14,6 +14,11 @@ const nextConfig: NextConfig = {
     return 'build-' + Date.now();
   },
   
+  // 确保静态导出正确配置
+  experimental: {
+    // 静态导出优化
+  },
+  
   // 图片优化 - 保持未优化状态
   images: {
     unoptimized: true, // PDF 图标不需要优化

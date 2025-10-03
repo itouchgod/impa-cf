@@ -322,6 +322,8 @@ npm run build:cloudflare
 
 详细部署指南请参考：[CLOUDFLARE_DEPLOYMENT.md](./CLOUDFLARE_DEPLOYMENT.md)
 
+**部署问题修复**: 如果遇到 404 错误或重定向问题，请参考：[CLOUDFLARE_DEPLOYMENT_FIX.md](./CLOUDFLARE_DEPLOYMENT_FIX.md)
+
 ### Vercel 部署
 - ✅ **Next.js 优化** - 原生支持
 - ✅ **香港东部区域** - 低延迟

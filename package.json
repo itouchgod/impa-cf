@@ -10,7 +10,7 @@
     "deploy": "vercel --prod",
     "deploy:preview": "vercel",
     "build:standalone": "next build && next export",
-    "build:cloudflare": "cp next.config.cloudflare.ts next.config.ts && next build && cp _headers _redirects out/",
+    "build:cloudflare": "cp next.config.cloudflare.ts next.config.ts && next build && cp _headers _redirects out/ && echo 'Cloudflare build completed successfully'",
     "deploy:cloudflare": "npm run build:cloudflare && echo 'Build completed. Upload the /out directory to Cloudflare Pages.'"
   },
   "dependencies": {

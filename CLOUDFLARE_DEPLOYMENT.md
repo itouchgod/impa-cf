@@ -133,25 +133,34 @@ ls -la out/
 
 ## 🚨 常见问题解决
 
-### 问题 1：PDF 文件无法加载
+### 问题 1：部署后返回 404 错误
+**原因**: `_redirects` 文件中的无效重定向规则
+**解决方案**：
+```bash
+# 检查并修复 _redirects 文件
+# 确保没有无限循环规则
+# 使用正确的状态码（200, 301, 302 等）
+```
+
+### 问题 2：PDF 文件无法加载
 **解决方案**：
 - 检查 `_redirects` 文件中的 PDF 路由配置
 - 确保 PDF 文件在 `out/pdfs/` 目录中
 - 验证 `_headers` 中的 PDF 缓存配置
 
-### 问题 2：搜索功能不工作
+### 问题 3：搜索功能不工作
 **解决方案**：
 - 检查 `_redirects` 中的搜索路由配置
 - 确保 `search.html` 文件存在
 - 验证 JavaScript 文件正确加载
 
-### 问题 3：PWA 功能异常
+### 问题 4：PWA 功能异常
 **解决方案**：
 - 检查 `manifest.json` 文件
 - 验证 Service Worker 配置
 - 确保图标文件存在
 
-### 问题 4：构建失败
+### 问题 5：构建失败
 **解决方案**：
 ```bash
 # 清理缓存
@@ -159,6 +168,14 @@ rm -rf .next out node_modules
 npm install
 npm run build:cloudflare
 ```
+
+### 问题 6：重定向循环错误
+**解决方案**：
+- 检查 `_redirects` 文件中的通配符规则
+- 避免使用 `/*` 模式导致循环
+- 使用精确匹配或正确的重定向逻辑
+
+**详细修复指南**: 请参考 [CLOUDFLARE_DEPLOYMENT_FIX.md](./CLOUDFLARE_DEPLOYMENT_FIX.md)
 
 ## 🔄 更新部署
 
