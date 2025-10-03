@@ -221,6 +221,8 @@ export default function SmartSearchBox({
       <div className="relative group">
         <input
           type="text"
+          id="smart-search-input"
+          name="smart-search"
           value={searchTerm}
           onChange={(e) => {
             const newValue = e.target.value;
@@ -240,6 +242,7 @@ export default function SmartSearchBox({
           placeholder="Search IMPA codes, names, or descriptions..."
           className="w-full pl-4 pr-20 py-3 bg-card border border-border rounded-full focus:outline-none focus:shadow-lg focus:border-primary transition-all duration-200 hover:shadow-md text-card-foreground placeholder:text-muted-foreground"
           disabled={isSearching}
+          autoComplete="off"
         />
         
         {/* 右侧按钮区域 */}
