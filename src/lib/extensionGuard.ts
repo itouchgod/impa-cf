@@ -37,6 +37,7 @@ class ExtensionGuard {
     
     // 网络错误
     'net::ERR_ABORTED', '404 (Not Found)', 'net::ERR_BLOCKED_BY_CLIENT',
+    'net::ERR_QUIC_PROTOCOL_ERROR', 'Failed to fetch', 'Failed to load section',
     
     // DOM 操作错误
     'Failed to execute \'appendChild\' on \'Node\'',
@@ -53,8 +54,12 @@ class ExtensionGuard {
     
     // 其他扩展相关
     'siteDubbingRules', 'ender metadata', 'mountUi return undefined',
-    'cz-shortcut-listen', 'Skipping ads', 'searchs (7)',
-    'messages MessageEvent', 'webpackJsonpCallback',
+    'cz-shortcut-listen', 'Skipping ads', 'searchs (7)', 'searchs (9)',
+    'messages MessageEvent', 'webpackJsonpCallback', 'test',
+    'current url ==', 'siteDubbingRules ==  undefined',
+    'enter wxt:locationchange', 'newUrl ==', 'oldUrl ==',
+    'IndexedDB initialization failed', 'falling back to localStorage',
+    'VersionError: The requested version', 'less than the existing version',
     
     // PDF 阅读器扩展相关
     'express-utils.js', 'AdobeClean-Regular.otf', 'AdobeClean-Bold.otf',
@@ -76,18 +81,25 @@ class ExtensionGuard {
   private readonly vmPatterns = [
     /VM\d+:14/,
     /VM\d+:\d+/,
+    /VM\d+:26/,
     /eval @ app-bootstrap\.js/,
     /eval @ app-next-dev\.js/,
     /vendors-\w+\.js/,
     /webpack-\w+\.js/,
     /main-app-\w+\.js/,
+    /layout-\w+\.js/,
+    /page-\w+\.js/,
     // 新增的扩展脚本模式
     /metadata\.js/,
     /contentscript\.js/,
     /content\.js/,
     /express-utils\.js/,
     /chrome-extension:\/\//,
-    /efaidnbmnnnibpcajpcglclefindmkaj/
+    /efaidnbmnnnibpcajpcglclefindmkaj/,
+    // 扩展相关的模式
+    /wxt:locationchange/,
+    /IndexedDB initialization failed/,
+    /VersionError: The requested version/
   ];
 
   constructor(config: ExtensionGuardConfig = {}) {
@@ -163,6 +175,14 @@ class ExtensionGuard {
         return; // 静默处理扩展警告
       }
       this.originalConsole.warn.apply(console, args);
+    };
+
+    // 重写 console.log
+    console.log = (...args) => {
+      if (this.isExtensionError(args)) {
+        return; // 静默处理扩展日志
+      }
+      this.originalConsole.log.apply(console, args);
     };
 
     // 全局错误处理

@@ -81,11 +81,16 @@ export default function RootLayout({
               (function() {
                 const originalError = console.error;
                 const originalWarn = console.warn;
+                const originalLog = console.log;
                 
                 // 最关键的扩展错误关键词
                 const criticalKeywords = [
                   'chext_', 'metadata.js', 'contentscript.js', 'chrome-extension://',
-                  'siteDubbingRules', 'ender metadata', 'mountUi return undefined'
+                  'siteDubbingRules', 'ender metadata', 'mountUi return undefined',
+                  'test', 'current url ==', 'searchs (9)', 'messages MessageEvent',
+                  'enter wxt:locationchange', 'newUrl ==', 'oldUrl ==',
+                  'IndexedDB initialization failed', 'falling back to localStorage',
+                  'VersionError: The requested version', 'less than the existing version'
                 ];
                 
                 function isCriticalExtensionError(args) {
@@ -102,6 +107,11 @@ export default function RootLayout({
                 console.warn = function(...args) {
                   if (isCriticalExtensionError(args)) return;
                   originalWarn.apply(console, args);
+                };
+                
+                console.log = function(...args) {
+                  if (isCriticalExtensionError(args)) return;
+                  originalLog.apply(console, args);
                 };
               })();
             `,
