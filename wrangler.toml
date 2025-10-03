@@ -7,6 +7,9 @@ command = "npm run build"
 cwd = "."
 watch_dir = "src"
 
+# Pages 配置
+pages_build_output_dir = "out"
+
 # 环境变量
 [env.production.vars]
 NODE_VERSION = "18"

@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && cp _headers _redirects out/ && echo 'Cloudflare build completed successfully'",
+    "build:cloudflare": "next build && cp _headers _redirects out/ && echo 'Cloudflare build completed successfully'",
     "start": "next start",
     "lint": "eslint",
     "deploy": "npm run build && echo 'Build completed. Upload the /out directory to Cloudflare Pages.'"
