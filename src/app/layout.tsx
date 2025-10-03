@@ -11,11 +11,15 @@ import Script from 'next/script';
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: 'swap',
+  preload: false,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: 'swap',
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -66,106 +70,38 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="16x16" href="/icon-48x48.png" />
         <link rel="shortcut icon" href="/icon-48x48.png" type="image/png" />
         
-        {/* 早期扩展防护脚本 */}
+        {/* 早期扩展防护脚本 - 最小化版本，主要功能由 ExtensionGuard 组件处理 */}
         <Script
           id="extension-guard-early"
           strategy="beforeInteractive"
           nonce={nonce}
           dangerouslySetInnerHTML={{
             __html: `
-              // 立即启动扩展防护，防止浏览器扩展干扰
+              // 立即启动基础扩展防护，防止浏览器扩展干扰
               (function() {
                 const originalError = console.error;
                 const originalWarn = console.warn;
                 
-                // 扩展错误关键词列表 - 全面覆盖
-                const extensionKeywords = [
-                  'chext_', 'metadata.js', 'contentscript.js', 'content.js',
-                  'chext_driver.js', 'chext_loader.js', 'chrome-extension://',
-                  'net::ERR_ABORTED', '404 (Not Found)', 'siteDubbingRules',
-                  'ender metadata', 'mountUi return undefined', 'yt-ext-',
-                  'cz-shortcut-listen', 'Skipping ads',
-                  'Failed to execute \\'observe\\' on \\'MutationObserver\\'',
-                  'parameter 1 is not of type \\'Node\\'',
-                  'Unexpected identifier \\'observe\\'',
-                  'appendChild\\' on \\'Node\\'',
-                  'Failed to execute \\'appendChild\\' on \\'Node\\'',
-                  'Failed to execute \\'appendChild\\' on \\'Node\\': Unexpected identifier \\'observe\\'',
-                  'Hydration failed', 'hydrated but some attributes',
-                  'server rendered HTML didn\\'t match', 'hydration mismatch',
-                  'throwOnHydrationMismatch',
-                  'vendors-326d2db556600f52.js', 'webpack-f9bdc8f8e7ef5feb.js',
-                  'main-app-e131d669f65d8db7.js', 'index.ts-loader3.js',
-                  'VM210:14', 'VM531:14', 'VM56:14', 'VM110:14', 'VM247:14',
-                  'vendors-326d2db556600f52.js:1:126815',
-                  'vendors-326d2db556600f52.js:1:126622', 'VM'
+                // 最关键的扩展错误关键词
+                const criticalKeywords = [
+                  'chext_', 'metadata.js', 'contentscript.js', 'chrome-extension://',
+                  'siteDubbingRules', 'ender metadata', 'mountUi return undefined'
                 ];
                 
-                // VM 脚本模式匹配
-                const vmPatterns = [
-                  /VM\\d+:14/, /VM\\d+:\\d+/, /eval @ app-bootstrap\\.js/,
-                  /eval @ app-next-dev\\.js/, /vendors-\\w+\\.js/,
-                  /webpack-\\w+\\.js/, /main-app-\\w+\\.js/
-                ];
-                
-                function isExtensionError(args) {
+                function isCriticalExtensionError(args) {
                   const message = args[0];
                   if (typeof message !== 'string') return false;
-                  
-                  // 检查关键词匹配
-                  const hasKeyword = extensionKeywords.some(keyword => 
-                    message.includes(keyword)
-                  );
-                  
-                  // 检查VM脚本模式
-                  const hasVMPattern = vmPatterns.some(pattern => 
-                    pattern.test(message)
-                  );
-                  
-                  // 检查堆栈跟踪
-                  const stack = args[1] || '';
-                  const hasStackKeyword = typeof stack === 'string' && 
-                    extensionKeywords.some(keyword => stack.includes(keyword));
-                  
-                  return hasKeyword || hasVMPattern || hasStackKeyword;
+                  return criticalKeywords.some(keyword => message.includes(keyword));
                 }
                 
                 console.error = function(...args) {
-                  if (isExtensionError(args)) {
-                    return; // 静默处理扩展错误
-                  }
+                  if (isCriticalExtensionError(args)) return;
                   originalError.apply(console, args);
                 };
                 
                 console.warn = function(...args) {
-                  if (isExtensionError(args)) {
-                    return; // 静默处理扩展警告
-                  }
+                  if (isCriticalExtensionError(args)) return;
                   originalWarn.apply(console, args);
-                };
-                
-                // 全局错误处理
-                const originalOnError = window.onerror;
-                window.onerror = function(message, source, lineno, colno, error) {
-                  if (isExtensionError([message, source])) {
-                    return true; // 阻止错误传播
-                  }
-                  if (originalOnError) {
-                    return originalOnError.call(window, message, source, lineno, colno, error);
-                  }
-                  return false;
-                };
-                
-                // 未捕获的 Promise 错误处理
-                const originalOnUnhandledRejection = window.onunhandledrejection;
-                window.onunhandledrejection = function(event) {
-                  if (isExtensionError([event.reason])) {
-                    event.preventDefault();
-                    return;
-                  }
-                  if (originalOnUnhandledRejection) {
-                    return originalOnUnhandledRejection.call(window, event);
-                  }
                 };
               })();
             `,

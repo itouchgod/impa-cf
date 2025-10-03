@@ -12,14 +12,8 @@ import LoadingScreen from '@/components/LoadingScreen';
 
 export default function HomePage() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [mounted, setMounted] = useState(false);
   const router = useRouter();
   const { loadingStatus, startLoading, isReady, hasStartedLoading } = usePDFText();
-
-  // 处理客户端挂载
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   // 页面加载时开始加载PDF文本（只在首次访问时）
   useEffect(() => {
@@ -46,8 +40,8 @@ export default function HomePage() {
     'bearing', 'seal', 'gasket', 'bolt', 'nut', 'screw', 'washer'
   ];
 
-  // 如果还没有挂载或正在加载，显示加载界面
-  if (!mounted || (loadingStatus.isLoading && !isReady)) {
+  // 如果正在加载，显示加载界面
+  if (loadingStatus.isLoading && !isReady) {
     return <LoadingScreen />;
   }
 
@@ -74,6 +68,8 @@ export default function HomePage() {
                   <div className="relative flex-1">
                     <input
                       type="text"
+                      id="search-input"
+                      name="search"
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       placeholder="Search name, code..."

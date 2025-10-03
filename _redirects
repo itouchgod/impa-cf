@@ -2,7 +2,8 @@
 # 参考: https://developers.cloudflare.com/pages/platform/redirects/
 
 # 处理 Next.js 路由
-/search/* /search.html 200
+/search /search/index.html 200
+/search.txt /search/index.txt 200
 /home / 301
 
 # 处理 PDF 查看器路由

@@ -56,6 +56,16 @@ class ExtensionGuard {
     'cz-shortcut-listen', 'Skipping ads', 'searchs (7)',
     'messages MessageEvent', 'webpackJsonpCallback',
     
+    // PDF 阅读器扩展相关
+    'express-utils.js', 'AdobeClean-Regular.otf', 'AdobeClean-Bold.otf',
+    'Slow network is detected', 'Fallback font will be used',
+    'searchs Array', 'efaidnbmnnnibpcajpcglclefindmkaj',
+    'browser/css/fonts', 'Intervention', 'chromestatus.com',
+    
+    // 更多扩展错误关键词
+    'enter wxt:locationchange', 'newUrl', 'oldUrl', 'wxt:',
+    'vendors-7a666a8fa88bbc28.js', 'rsc=vusbg', 'search.txt',
+    
     // 水合错误
     'Hydration failed', 'hydrated but some attributes',
     'server rendered HTML didn\'t match', 'hydration mismatch',
@@ -70,7 +80,14 @@ class ExtensionGuard {
     /eval @ app-next-dev\.js/,
     /vendors-\w+\.js/,
     /webpack-\w+\.js/,
-    /main-app-\w+\.js/
+    /main-app-\w+\.js/,
+    // 新增的扩展脚本模式
+    /metadata\.js/,
+    /contentscript\.js/,
+    /content\.js/,
+    /express-utils\.js/,
+    /chrome-extension:\/\//,
+    /efaidnbmnnnibpcajpcglclefindmkaj/
   ];
 
   constructor(config: ExtensionGuardConfig = {}) {
