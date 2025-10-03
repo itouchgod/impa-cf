@@ -6,7 +6,7 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import DevToolsInit from "@/components/DevToolsInit";
 import ExtensionGuard from "@/components/ExtensionGuard";
 import Script from 'next/script';
-import { headers } from "next/headers";
+// import { headers } from "next/headers"; // 静态导出不需要
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,17 +40,16 @@ export const metadata: Metadata = {
   },
 };
 
-// 避免被静态化缓存
-export const dynamic = "force-dynamic";
+// 静态导出兼容 - 移除 force-dynamic
+// export const dynamic = "force-dynamic";
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // 🔧 关键修复：headers() 需要 await
-  const h = await headers();
-  const nonce = h.get("x-nonce") || "";
+  // 静态导出兼容 - 使用固定 nonce
+  const nonce = "static-nonce";
 
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>

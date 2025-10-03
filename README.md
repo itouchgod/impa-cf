@@ -303,6 +303,41 @@ devTools.help()                       // 显示帮助信息
 - [ ] 书签和注释功能
 - [ ] 全文索引和高级搜索
 
+## 🚀 部署选项
+
+### Cloudflare Pages 部署（推荐）
+- ✅ **完全兼容** - 支持所有功能
+- ✅ **全球 CDN** - 快速访问
+- ✅ **免费额度** - 适合中小型项目
+- ✅ **自动部署** - Git 集成
+- ✅ **PWA 支持** - 完美支持
+
+**快速部署**：
+```bash
+# 构建 Cloudflare 版本
+npm run build:cloudflare
+
+# 上传 out 文件夹到 Cloudflare Pages
+```
+
+详细部署指南请参考：[CLOUDFLARE_DEPLOYMENT.md](./CLOUDFLARE_DEPLOYMENT.md)
+
+### Vercel 部署
+- ✅ **Next.js 优化** - 原生支持
+- ✅ **香港东部区域** - 低延迟
+- ✅ **自动部署** - Git 集成
+
+**快速部署**：
+```bash
+# 部署到生产环境
+npm run deploy
+
+# 部署预览版本
+npm run deploy:preview
+```
+
+详细部署指南请参考：[DEPLOYMENT.md](./DEPLOYMENT.md)
+
 ## 📄 许可证
 
 MIT License
