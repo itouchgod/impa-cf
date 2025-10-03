@@ -6,8 +6,6 @@
 /search.txt /search/index.txt 200
 /home / 301
 
-# 处理 PDF 查看器路由
-/pdf-viewer /pdf-viewer/index.html 200
 
 # 处理 Service Worker
 /sw.js /sw.js 200

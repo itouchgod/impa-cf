@@ -42,7 +42,6 @@
 out/
 ├── index.html              # 首页
 ├── search.html             # 搜索页面
-├── pdf-viewer/             # PDF 查看器
 ├── pdfs/                   # PDF 文件
 ├── icon-*.png              # PWA 图标
 ├── brand-icon.svg          # 品牌图标
@@ -91,7 +90,6 @@ ls -la out/
 # 应该看到以下关键文件：
 # - index.html
 # - search.html
-# - pdf-viewer/
 # - pdfs/
 # - _headers
 # - _redirects
@@ -115,7 +113,6 @@ ls -la out/
 ### 功能验证
 1. **首页访问**: `https://your-project.pages.dev/`
 2. **搜索功能**: `https://your-project.pages.dev/search?q=test`
-3. **PDF 查看器**: `https://your-project.pages.dev/pdf-viewer/`
 4. **PWA 安装**: 在移动设备上测试安装功能
 
 ## 📱 PWA 功能验证

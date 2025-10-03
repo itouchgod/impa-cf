@@ -6,17 +6,12 @@ const nextConfig: NextConfig = {
   trailingSlash: true, // 添加尾部斜杠，提升兼容性
   skipTrailingSlashRedirect: true, // 跳过重定向
   
-  // 禁用服务器端功能
-  distDir: 'out', // 输出目录
+  // 输出目录
+  distDir: 'out',
   
-  // 跳过 not-found 页面生成
+  // 生成构建ID
   generateBuildId: async () => {
     return 'build-' + Date.now();
-  },
-  
-  // 确保静态导出正确配置
-  experimental: {
-    // 静态导出优化
   },
   
   // 图片优化 - 保持未优化状态

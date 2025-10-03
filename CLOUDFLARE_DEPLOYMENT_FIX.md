@@ -6,8 +6,6 @@
 
 ### 1. 无效的重定向规则
 ```
-- #10: /pdf-viewer/* /pdf-viewer/index.html 200
-  Infinite loop detected in this rule and has been ignored.
 - #32: /* /404.html 404
   Valid status codes are 200, 301, 302 (default), 303, 307, or 308. Got 404.
 ```
@@ -21,15 +19,10 @@
 ### 修复 1: 更新 _redirects 文件
 
 **问题**: 
-- `/pdf-viewer/*` 规则导致无限循环
 - `/* /404.html 404` 使用了无效的状态码
 
 **解决方案**:
 ```diff
-# 处理 PDF 查看器路由
-- /pdf-viewer/* /pdf-viewer/index.html 200
-+ /pdf-viewer /pdf-viewer/index.html 200
-
 # 404 处理 - 使用自定义 404 页面
 - /* /404.html 404
 + /* /404.html 200
@@ -70,7 +63,6 @@ npm run build:cloudflare
 - ✅ `_headers` - 头部配置
 - ✅ `_redirects` - 重定向配置（已修复）
 - ✅ `pdfs/` - PDF 文件目录
-- ✅ `pdf-viewer/` - PDF 查看器
 
 ### 步骤 3: 上传到 Cloudflare Pages
 
@@ -99,13 +91,11 @@ npm run build:cloudflare
 
 **修复前的问题**:
 ```bash
-/pdf-viewer/* /pdf-viewer/index.html 200  # 无限循环
 /* /404.html 404                          # 无效状态码
 ```
 
 **修复后的规则**:
 ```bash
-/pdf-viewer /pdf-viewer/index.html 200    # 精确匹配
 /* /404.html 200                          # 正确的状态码
 ```
 

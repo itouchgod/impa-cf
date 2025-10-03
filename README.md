@@ -109,6 +109,17 @@
 
 ## 🔄 最新更新
 
+- 🧹 **项目结构优化和冗余清理（2024-12-19）**
+  - 移除了独立的PDF查看器页面（`public/pdf-viewer/`）
+  - 删除了相关的创建脚本（`scripts/create_pdf_viewer.py`）
+  - 移除了Vercel相关配置和文档（`vercel.json`, `DEPLOYMENT.md`）
+  - 删除了未使用的文档文件（`CIRCULAR_PAGINATION.md`, `EXTENSION_GUARD_OPTIMIZATION.md`, `CLOUDFLARE_SETUP_GUIDE.md`）
+  - 移除了已完成的PDF处理脚本（`accurate-split-pdf.py`, `split-pdf.py`, `generate-icons.js`）
+  - 简化了配置文件，统一使用Cloudflare配置
+  - 优化了package.json脚本，移除Vercel相关命令
+  - 更新了所有文档，移除冗余说明
+  - 简化了项目结构，专注于核心搜索功能
+  - 保留了命令行PDF查看工具（`scripts/view_pdf.py`）
 - 🎨 **悬浮按钮精致化升级（2024-12-19）**
   - 全新透明玻璃效果设计，采用毛玻璃背景和精致边框
   - 优化按钮尺寸，使其更加精致和协调（桌面端：48px，移动端：40px）
@@ -123,17 +134,14 @@
   - 修复ExtensionGuard类型错误，提升系统稳定性
   - **PDF章节选择器样式优化**：采用透明玻璃效果设计，与悬浮按钮风格统一
   - **黑夜模式视觉优化**：全新配色方案，渐变背景，增强玻璃效果和视觉层次
-- 📚 **PDF文件云端存储和查看功能（2024-12-19）**
+- 📚 **PDF文件云端存储功能（2024-12-19）**
   - 成功将39个PDF文件（总计约400MB）上传到Cloudflare Pages
   - 创建了自动化的PDF上传脚本（`scripts/upload_pdfs.py`）
   - 生成了美观的文件列表展示页面，包含文件大小和统计信息
   - 新的部署地址：https://98f17a84.impa-pdf-storage.pages.dev
   - 自定义域名：https://ceb894f3.impa-pdf-storage.pages.dev
   - 支持一键重新部署和文件管理
-  - **新增PDF查看器功能**：
-    - 创建了完整的在线PDF查看器（`public/pdf-viewer/index.html`）
-    - 支持在线预览、下载和新窗口打开
-    - 响应式设计，支持桌面和移动端
+  - **提供命令行快速查看工具**：
     - 提供命令行快速查看工具（`scripts/view_pdf.py`）
     - 支持按编号快速查看特定PDF文件
 - 🛡️ **统一扩展防护系统（2024-12-19）**
@@ -258,12 +266,6 @@
 - 悬浮按钮拖拽定位
 
 ### PDF文件查看
-#### 在线查看器
-- 打开 `public/pdf-viewer/index.html` 文件
-- 从左侧列表选择要查看的PDF文件
-- 支持在线预览、下载和新窗口打开
-- 响应式设计，适配各种设备
-
 #### 命令行快速查看
 ```bash
 # 查看31号文件（安全防护装备）
@@ -276,7 +278,7 @@ python3 scripts/view_pdf.py list
 python3 scripts/view_pdf.py help
 ```
 
-#### 直接访问
+#### 直接访问PDF文件
 - **31号文件**: https://98f17a84.impa-pdf-storage.pages.dev/pdfs/31-Safety_Protective_Gear.pdf
 - **所有文件**: https://98f17a84.impa-pdf-storage.pages.dev
 
@@ -314,8 +316,8 @@ devTools.help()                       // 显示帮助信息
 
 **快速部署**：
 ```bash
-# 构建 Cloudflare 版本
-npm run build:cloudflare
+# 构建项目
+npm run build
 
 # 上传 out 文件夹到 Cloudflare Pages
 ```
@@ -324,21 +326,6 @@ npm run build:cloudflare
 
 **部署问题修复**: 如果遇到 404 错误或重定向问题，请参考：[CLOUDFLARE_DEPLOYMENT_FIX.md](./CLOUDFLARE_DEPLOYMENT_FIX.md)
 
-### Vercel 部署
-- ✅ **Next.js 优化** - 原生支持
-- ✅ **香港东部区域** - 低延迟
-- ✅ **自动部署** - Git 集成
-
-**快速部署**：
-```bash
-# 部署到生产环境
-npm run deploy
-
-# 部署预览版本
-npm run deploy:preview
-```
-
-详细部署指南请参考：[DEPLOYMENT.md](./DEPLOYMENT.md)
 
 ## 📄 许可证
 

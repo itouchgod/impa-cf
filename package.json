@@ -4,14 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && cp _headers _redirects out/ && echo 'Cloudflare build completed successfully'",
     "start": "next start",
     "lint": "eslint",
-    "deploy": "vercel --prod",
-    "deploy:preview": "vercel",
-    "build:standalone": "next build && next export",
-    "build:cloudflare": "cp next.config.cloudflare.ts next.config.ts && next build && cp _headers _redirects out/ && echo 'Cloudflare build completed successfully'",
-    "deploy:cloudflare": "npm run build:cloudflare && echo 'Build completed. Upload the /out directory to Cloudflare Pages.'"
+    "deploy": "npm run build && echo 'Build completed. Upload the /out directory to Cloudflare Pages.'"
   },
   "dependencies": {
     "lucide-react": "^0.544.0",

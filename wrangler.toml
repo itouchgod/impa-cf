@@ -1,19 +1,11 @@
 name = "impa-pdf-search"
 compatibility_date = "2024-10-03"
 
-[env.production]
-name = "impa-pdf-search"
-
 # 构建配置
 [build]
-command = "npm run build:cloudflare"
+command = "npm run build"
 cwd = "."
 watch_dir = "src"
-
-# 静态资源配置
-[[env.production.routes]]
-pattern = "impa-pdf-search.pages.dev/*"
-zone_name = "pages.dev"
 
 # 环境变量
 [env.production.vars]
