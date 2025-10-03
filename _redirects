@@ -28,5 +28,5 @@
 # 处理 PDF.js worker
 /pdf.worker.min.js /pdf.worker.min.js 200
 
-# 404 处理 - 使用自定义 404 页面
-/* /404.html 200
+# 404 处理 - 移除通配符规则避免循环
+# /* /404.html 200
